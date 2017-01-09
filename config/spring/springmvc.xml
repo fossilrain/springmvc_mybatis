@@ -20,7 +20,7 @@
 	<!-- 静态资源解析
 	包括：js、css、....
 	 -->
-    <mvc:resources location="/EasyUI/" mapping="/EasyUI/**"></mvc:resources>    	
+    <mvc:resources location="/EasyUI/" mapping="/EasyUI/**"></mvc:resources>    
 	<!-- 视图解析器 
 	解析jsp，默认使用jstl标签，classpath下需要有jstl包
 	-->
@@ -77,6 +77,7 @@
 		<property name="basenames">
 			<list>
 				<value>classpath:customValidationMessage</value>
+				<value>classpath:i18n/i18n</value>
 			</list>
 		</property>
 		<!-- 资源文件编码格式 -->
@@ -93,15 +94,28 @@
 	    <!-- one of the properties available; the maximum file size in bytes -->
 	    <property name="maxUploadSize" value="1000000"/>
 	</bean>
+	<!-- 国际化 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" /> 
+    <!-- 此处使用上边的messageSource
+    <bean id="messageSource"
+            class="org.springframework.context.support.ResourceBundleMessageSource">
+       	<property name="basenames">
+            <list>
+                <value>format</value>
+                <value>exceptions</value>
+                <value>windows</value>
+            </list>
+        </property>
+    </bean> -->
 	<!-- 拦截器 -->
 	<mvc:interceptors>
 		<!-- 多个拦截器顺序执行 -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
 		<!-- 登录认证拦截器 -->
 		<mvc:interceptor>
 	        <mvc:mapping path="/**"/>
 	        <bean class="com.smm.interceptor.LoginInterceptor"/>
 	    </mvc:interceptor>
-	    <!-- <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/> -->
 	    <mvc:interceptor>
 	        <mvc:mapping path="/**"/>
 	        <!-- <mvc:exclude-mapping path="/admin/**"/> -->
@@ -112,4 +126,5 @@
 	        <bean class="com.smm.interceptor.HandlerInterceptor2"/>
 	    </mvc:interceptor>
 	</mvc:interceptors>
+	
 </beans>

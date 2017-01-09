@@ -9,6 +9,8 @@
 <title>商品列表</title>
 </head>
 <body>
+<fmt:message key="test.i18n.welcome"/>
+<br/>
 当前用户：${username },
 <c:if test="${username != null }">
 	<a href="${pageContext.request.contextPath }/logout.action">退出</a>
